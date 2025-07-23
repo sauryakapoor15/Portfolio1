@@ -1,0 +1,476 @@
+<!-- JUST A SIMPLE 3 STRUCTURE PORTFOLIO WITH FULLY FUNCTIONAL CHATBOT ASSISTANT 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Professional Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    
+    :root {
+      --primary: #2d3a4a;
+      --accent: #0066ff;
+      --bg: #f7f9fa;
+      --white: #fff;
+      --gray: #eaeaea;
+      --text: #222;
+      --shadow: 0 2px 8px rgba(44,62,80,0.08);
+    }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    header {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+    
+    header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    header p {
+      margin: 0 0 1rem 0;
+      color: #444;
+      font-size: 1.2rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+    
+    nav a:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    section {
+      margin-bottom: 2.5rem;
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 2rem 1.5rem;
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+    }
+    
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .project-card {
+      background: var(--gray);
+      border-radius: 8px;
+      padding: 1.2rem;
+      box-shadow: 0 1px 4px rgba(44,62,80,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    
+    .project-card:hover {
+      box-shadow: 0 4px 16px rgba(0,102,255,0.15);
+      transform: translateY(-2px) scale(1.02);
+    }
+    
+    .project-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+    
+    .project-card p {
+      margin: 0 0 0.7rem 0;
+      color: #444;
+      font-size: 1rem;
+    }
+    
+    .project-card .tech {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 0.7rem;
+    }
+    
+    .project-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.98rem;
+      align-self: flex-start;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+    
+    .project-card a:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    
+    .skill-block {
+      flex: 1 1 180px;
+      margin-bottom: 1rem;
+    }
+    
+    .skill-label {
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+    }
+    .skill-bar-bg {
+      width: 100%;
+      background: var(--gray);
+      border-radius: 5px;
+      height: 18px;
+      margin-top: 0.2rem;
+      overflow: hidden;
+    }
+    
+    .skill-bar {
+      height: 18px;
+      background: linear-gradient(90deg, var(--accent), #4fd1c5);
+      width: 0;
+      border-radius: 5px;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    
+    .contact-info {
+      font-size: 1.1rem;
+      color: #444;
+    }
+    
+    .contact-info a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Chatbot styles */
+    #chatbot-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      width: 58px;
+      height: 58px;
+      font-size: 2rem;
+      box-shadow: 0 2px 12px rgba(0,102,255,0.12);
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    
+    #chatbot-toggle:hover {
+      background: var(--primary);
+    }
+    
+    #chatbot-box {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 340px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 32px rgba(0,102,255,0.15);
+      display: none;
+      flex-direction: column;
+      z-index: 1001;
+      border: 1px solid var(--gray);
+    }
+    
+    #chatbot-header {
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.8rem 1rem;
+      border-radius: 12px 12px 0 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    
+    #chatbot-messages {
+      padding: 1rem;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 1rem;
+      color: var(--text);
+      background: #f6f8fa;
+    }
+    
+    .chatbot-msg {
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    
+    .chatbot-msg.user {
+      text-align: right;
+      color: var(--accent);
+    }
+    
+    .chatbot-msg.bot {
+      text-align: left;
+      color: var(--primary);
+    }
+    
+    #chatbot-input-area {
+      display: flex;
+      border-top: 1px solid var(--gray);
+      background: #f1f3f5;
+      border-radius: 0 0 12px 12px;
+    }
+    
+    #chatbot-input {
+      flex: 1;
+      border: none;
+      padding: 0.9rem;
+      font-size: 1rem;
+      background: #f1f3f5;
+      color: var(--text);
+      outline: none;
+      border-radius: 0 0 0 12px;
+    }
+    
+    #chatbot-send {
+      border: none;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 1.2rem;
+      padding: 0 1.2rem;
+      cursor: pointer;
+      border-radius: 0 0 12px 0;
+      transition: background 0.2s;
+    }
+    
+    #chatbot-send:hover {
+      background: var(--primary);
+    }
+    
+    @media (max-width: 700px) {
+      main { padding: 0 0.2rem; }
+      #chatbot-box { width: 97vw; right: 1vw; }
+      .project-list { grid-template-columns: 1fr; }
+      .skills-list { flex-direction: column; }
+    }
+  </style>
+</head>
+  
+<body>
+  <header>
+    <h1 id="profile-name"></h1>
+    <p id="profile-bio"></p>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-list" id="projects-list"></div>
+    </section>
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-list" id="skills-list"></div>
+    </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-info" id="contact-info"></div>
+    </section>
+  </main>
+  <!-- Chatbot toggle button -->
+  <button id="chatbot-toggle" title="Chat with me!">💬</button>
+  <!-- Chatbot box -->
+  <div id="chatbot-box">
+    <div id="chatbot-header">Portfolio Chatbot</div>
+    <div id="chatbot-messages"></div>
+    <form id="chatbot-input-area" autocomplete="off">
+      <input id="chatbot-input" type="text" placeholder="Ask me about my work..." />
+      <button id="chatbot-send" type="submit">➤</button>
+    </form>
+  </div>
+  <script>
+    
+    // === Editable Data ===
+    const data = {
+      profile: {
+        name: "Alex Morgan",
+        bio: "Front-end Developer & UI Designer passionate about building impactful digital experiences."
+      },
+      projects: [
+        {
+          title: "Portfolio Website",
+          description: "A modern, responsive portfolio site to showcase my projects and skills.",
+          tech: ["HTML", "CSS", "JavaScript"],
+          demo: "#"
+        },
+        {
+          title: "Task Manager App",
+          description: "A productivity web app for managing daily tasks with a clean UI.",
+          tech: ["React", "Redux", "Firebase"],
+          demo: "#"
+        },
+        {
+          title: "E-commerce Landing",
+          description: "A high-converting landing page for an online store.",
+          tech: ["Vue.js", "SCSS"],
+          demo: "#"
+        }
+      ],
+      skills: {
+        "HTML & CSS": 95,
+        "JavaScript": 90,
+        "React": 85,
+        "UI/UX Design": 80,
+        "Vue.js": 70
+      },
+      contact: {
+        email: "alex.morgan@email.com",
+        linkedin: "https://linkedin.com/in/alexmorgan"
+      }
+    };
+
+    // === Render Profile ===
+    document.getElementById('profile-name').textContent = data.profile.name;
+    document.getElementById('profile-bio').textContent = data.profile.bio;
+
+    // === Render Projects ===
+    const projectsList = document.getElementById('projects-list');
+    projectsList.innerHTML = data.projects.map(p => `
+      <div class="project-card">
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="tech"><strong>Tech:</strong> ${p.tech.join(', ')}</div>
+        <a href="${p.demo}" target="_blank">View Demo</a>
+      </div>
+    `).join('');
+
+    // === Render Skills ===
+    const skillsList = document.getElementById('skills-list');
+    skillsList.innerHTML = Object.entries(data.skills).map(([skill, value]) => `
+      <div class="skill-block">
+        <div class="skill-label">${skill}</div>
+        <div class="skill-bar-bg"><div class="skill-bar" data-width="${value}%"></div></div>
+      </div>
+    `).join('');
+
+    // Animate skill bars
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.skill-bar').forEach(bar => {
+        setTimeout(() => {
+          bar.style.width = bar.getAttribute('data-width');
+        }, 400);
+      });
+    });
+
+    // === Render Contact ===
+    document.getElementById('contact-info').innerHTML = `
+      <p>Email: <a href="mailto:${data.contact.email}">${data.contact.email}</a></p>
+      <p>LinkedIn: <a href="${data.contact.linkedin}" target="_blank">${data.contact.linkedin.replace(/^https?:\/\//, '')}</a></p>
+    `;
+
+    // === Chatbot Logic ===
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotBox = document.getElementById('chatbot-box');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotInputArea = document.getElementById('chatbot-input-area');
+
+    chatbotToggle.onclick = () => {
+      chatbotBox.style.display = chatbotBox.style.display === 'flex' ? 'none' : 'flex';
+      chatbotBox.style.flexDirection = 'column';
+      setTimeout(() => chatbotInput.focus(), 100);
+    };
+
+    function addChatbotMsg(msg, sender) {
+      const div = document.createElement('div');
+      div.className = `chatbot-msg ${sender}`;
+      div.textContent = msg;
+      chatbotMessages.appendChild(div);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Simple chatbot responses (expand as needed)
+    function chatbotResponse(input) {
+      const q = input.trim().toLowerCase();
+      if (q.includes('name')) return `My name is ${data.profile.name}.`;
+      if (q.includes('skills')) return `My main skills: ${Object.keys(data.skills).join(', ')}.`;
+      if (q.includes('project')) return `Some of my projects: ${data.projects.map(p => p.title).join(', ')}.`;
+      if (q.includes('contact') || q.includes('email')) return `You can reach me at: ${data.contact.email}`;
+      if (q.includes('linkedin')) return `Here's my LinkedIn: ${data.contact.linkedin}`;
+      if (q.includes('hello') || q.includes('hi')) return "Hello! How can I help you?";
+      return "I'm happy to answer questions about my work, skills, or contact info!";
+    }
+
+    chatbotInputArea.onsubmit = function(e) {
+      e.preventDefault();
+      const userMsg = chatbotInput.value.trim();
+      if (!userMsg) return;
+      addChatbotMsg(userMsg, 'user');
+      setTimeout(() => {
+        addChatbotMsg(chatbotResponse(userMsg), 'bot');
+      }, 500);
+      chatbotInput.value = '';
+    };
+  </script>
+</body>
+</html>
