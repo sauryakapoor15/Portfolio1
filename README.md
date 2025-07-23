@@ -26,8 +26,9 @@
 <h2>📁 Folder Structure</h2>
 <pre>
 📁 portfolio-chatbot
-├── index.html
-├── screenshot.png
+├── portfolio1.html
+├── 📁 Resources
+├──         └── image.png
 └── README.md
 </pre>
 
@@ -36,7 +37,7 @@
   <li>Clone the repository:<br>
     <code>git clone https://github.com/yourusername/portfolio-chatbot.git</code>
   </li>
-  <li>Open <code>index.html</code> in your browser</li>
+  <li>Open <code>portfolio1.html</code> in your browser</li>
   <li>Customize profile data in the JavaScript <code>data</code> object</li>
 </ol>
 
