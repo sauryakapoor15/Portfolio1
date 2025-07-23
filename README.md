@@ -3,8 +3,8 @@
 <p>A clean, responsive, and modern portfolio website built with HTML, CSS, and JavaScript. It features a project showcase, animated skills, contact section, and a smart chatbot that answers questions about your work.</p>
 
 <h2>📸 Preview</h2>
-<p><em>Replace the image URL below with your own screenshot path:</em></p>
-<img src="screenshot.png" alt="Portfolio Screenshot" width="100%"/>
+<p><em>You can see the bot is functional</em></p>
+<img src="Resources/image.png" alt="Portfolio Screenshot" width="100%"/>
 
 <h2>🚀 Features</h2>
 <ul>
